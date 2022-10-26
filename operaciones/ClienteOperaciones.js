@@ -76,4 +76,18 @@ clienteOperaciones.modificarCliente = async (req, res)=>{
     }
 }
 
+clienteOperaciones.borrarCliente = async (req, res)=>{
+    try {
+        const id = req.params.id;
+        const cliente = await clienteModelo.findByIdAndDelete(id);
+        if (cliente != null){
+            res.status(200).send(cliente);
+        } else {
+            res.status(404).send("No hay datos");
+        }
+    } catch (error) {
+        res.status(400).send("Mala petición. "+error);
+    }
+}
+
 module.exports = clienteOperaciones;
